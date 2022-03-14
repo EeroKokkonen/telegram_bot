@@ -37,7 +37,7 @@ def osake_command(update,context):
 
 
 def main():
-    updater = Updater(keys.API_KEY, use_context=True)
+    updater = Updater(keys.TG_API_KEY, use_context=True)
     dp = updater.dispatcher
 
     dp.add_handler(CommandHandler("krypto", krypto_command))

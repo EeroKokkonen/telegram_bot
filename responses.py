@@ -1,5 +1,6 @@
 import requests
 import json
+import constants as keys
 
 def lisa_valinta(valuutta, valinta):
 
@@ -71,7 +72,7 @@ def louhinta(teksti, hashit):
 def osake(teksti):
     user_message = str(teksti).lower()
 
-    url = "https://api.twelvedata.com/price?symbol=" + user_message + "&apikey=7ff27d2112734a9abd57b2bfff22f688"
+    url = "https://api.twelvedata.com/price?symbol=" + user_message + "&apikey=" + keys.STOCK_API_KEY
     r = requests.get(url)
 
     if r.status_code == 200:
