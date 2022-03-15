@@ -19,21 +19,30 @@ def louhinta_command(update,context):
     text = [update.message.text.lower()]
     text = text[0].split()
     response = ""
+    kortti = True
     valuutat = ['eth', 'rvn', 'cfx', 'ton', 'erg']
-    louhinta_nopeus = [60, 36, 75, 3130, 171]
-    
+
     if text[1] == "3070ti":
-        palautus = 1
-        print(text[1])
-        for i in range(len(valuutat)):
-            response += R.louhinta(valuutat[i], louhinta_nopeus[i], palautus) + "\n"
+        louhinta_nopeus = [60, 36, 75, 3130, 171]
+    elif text[1] == "3060":
+        louhinta_nopeus = [36, 24.6, 46, 1860, 121]
+    elif text[1] == "3080":
+        louhinta_nopeus = [100, 42, 90, 4330, 228]
+    elif text[1] == "3070":
+        louhinta_nopeus = [62, 31, 58, 2780, 173]
     else:
-        palautus = 0
+        kortti = False
+
+
+    if kortti == True:
+        for i in range(len(valuutat)):
+            response += R.louhinta(valuutat[i], louhinta_nopeus[i], 1) + "\n"
+    else:
         try:
-            response = R.louhinta(text[1], float(text[2]))
+            response = R.louhinta(text[1], float(text[2]), 0)
         except Exception as e:
             print(e)
-            response = R.louhinta(text[1], 100)
+            response = R.louhinta(text[1], 100, 0)
 
     update.message.reply_text(response)
 
