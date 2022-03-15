@@ -12,7 +12,7 @@ def lisa_valinta(valuutta, valinta):
     if r.status_code == 200:
         try:
             data = r.json()
-            tilasto = data['market_data'][valinta]['eur']
+            tilasto = str(data['market_data'][valinta]['eur'])
             return "\n" + valinta + ": " + tilasto + '€'
         except Exception as e:
             print(e)

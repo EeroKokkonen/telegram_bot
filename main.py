@@ -17,15 +17,17 @@ def krypto_command(update,context):
 
 def louhinta_command(update,context):
     text = [update.message.text.lower()]
-    text = text[0].split()
+    text = text[0].split()  # Parsing user message to list
     response = ""
-    kortti = True
+    kortti = True   # Determines if user want to know mining info from specific card or not
     valuutat = ['eth', 'rvn', 'cfx', 'ton', 'erg']
 
     if text[1] == "3070ti":
         louhinta_nopeus = [60, 36, 75, 3130, 171]
     elif text[1] == "3060":
         louhinta_nopeus = [36, 24.6, 46, 1860, 121]
+    elif text[1] == "3060ti":
+        louhinta_nopeus = [62, 30.5, 53, 2410, 173]
     elif text[1] == "3060til":
         louhinta_nopeus = [45, 31, 53, 2320, 144]
     elif text[1] == "3080ti":
@@ -38,6 +40,8 @@ def louhinta_command(update,context):
         louhinta_nopeus = [62, 32, 58, 2780, 173]
     elif text[1] == "3070l":
         louhinta_nopeus = [45, 32, 59, 2780, 146]
+    elif text[1] == "1660s":
+        louhinta_nopeus = [31.7, 14.2, 25, 1280, 62.9]
     else:
         kortti = False
 
@@ -49,7 +53,6 @@ def louhinta_command(update,context):
         try:
             response = R.louhinta(text[1], float(text[2]), 0)
         except Exception as e:
-            print(e)
             response = R.louhinta(text[1], 100, 0)
 
     update.message.reply_text(response)
