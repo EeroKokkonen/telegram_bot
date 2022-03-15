@@ -3,16 +3,14 @@ import json
 import constants as keys
 
 def help():
-    try:
         text = "/krypto <Valuutan koko nimi> <*Lisävalinta>\n"
         text += "/louhinta <Valuutan lyhenne> <*mhs>\n"
         text += "/louhinta <Näytönohjain>\n"
         text += "/osake <Osakkeen lyhenne>\n"
+        text += "/kello <Näytönohjain>\n"
         text += "* = ei pakollinen\n"
-        print(text)
         return text
-    except Exception as e:
-        print(e)
+
 
     
 def lisa_valinta(valuutta, valinta):
@@ -89,16 +87,68 @@ def osake(teksti):
     user_message = str(teksti).lower()
 
     url = "https://api.twelvedata.com/price?symbol=" + user_message + "&apikey=" + keys.STOCK_API_KEY
+    url_2 = "https://api.twelvedata.com/time_series?symbol=" + user_message + "&interval=8h&apikey=" + keys.STOCK_API_KEY
     r = requests.get(url)
+    r_2 = requests.get(url_2)
 
     if r.status_code == 200:
         try:
+            data_2 = r_2.json()
+            print(data_2['values'][0]['open'])
+
             data = r.json()
             print(data['price'])
-            kuvaus = "Osakkeen hinta:\n"
+            kuvaus = "Osake: " + teksti + "\n"
             hinta_osake = float(data['price'])
-            teksti_osake = "{:.2f} $".format(hinta_osake)
-            return kuvaus + teksti_osake
+
+            paivan_muutos = ((hinta_osake - float(data_2['values'][0]['open'])) / float(data_2['values'][0]['open'])) * 100
+            teksti_muutos = "{:.2f}%".format(paivan_muutos)
+
+            teksti_osake = "{:.2f} $\n".format(hinta_osake)
+            return kuvaus + teksti_osake + teksti_muutos
         except Exception as e:
             print(e)
             return "Väärä valinta, tai liikaa yrityksiä"
+
+def kellotus(kortti):
+    teksti = "COIN: CORE MEM PL\n"
+    if kortti == "3070ti":
+        teksti += "ETH: 1400 2450 245\n"
+        teksti += "CFX: 1400 2400 240\n"
+        teksti += "RVN: 1500 2400 245\n"
+        teksti += "ERG: 1800 2700 240\n"
+        teksti += "FIRO: 1400 1800 230\n"
+        teksti += "FLUX: 1750 2600 200\n"
+    elif kortti == "3060":
+        teksti += "ETH: 1550 2500 150\n"
+    elif kortti == "3060ti":
+        teksti += "Ei tietoa, kysy Villeltä :D\n"
+    elif kortti == "3060til":
+        teksti += "ETH: 1400 2450 125\n"
+        teksti += "CFX: 1450 2400 160\n"
+        teksti += "ERG: 1350 2000 110\n"
+    elif kortti == "3080ti":
+        teksti += "ETH: 1200 1900 270\n"
+        teksti += "CFX: 1250 1800 330\n"
+        teksti += "RVN: 1250 1600 330\n"
+        teksti += "ERG: 2040 2300 250\n"
+        teksti += "FIRO: 1400 1800 340\n"
+        teksti += "FLUX: 1750 2000 300\n"
+    elif kortti == "3080":
+        teksti += "ETH: 1200 2400 215\n"
+        teksti += "CFX: 1400 2400 265\n"
+        teksti += "RVN: 1300 2000 255\n"
+        teksti += "ERG: 2040 2600 200\n"
+        teksti += "FIRO: 1400 1800 290\n"
+        teksti += "FLUX: 1750 2600 250\n"
+    elif kortti == "3080l":
+        teksti += "ETH: 1100 2450 190\n"
+    elif kortti == "3070":
+        teksti += "ETH: 1100 2600 125\n"
+    elif kortti == "3070l":
+        "Ei tietoa, kysy Villeltä :D\n"
+    elif kortti == "1660s":
+        teksti += "ETH: 1100 2100 80\n"
+        teksti += "Samsung tai Micron\n"
+
+    return teksti

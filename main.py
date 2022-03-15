@@ -71,6 +71,14 @@ def osake_command(update,context):
 
     update.message.reply_text(response)
 
+def kellotus_command(update,context):
+    text = [update.message.text.lower()]
+    text = text[0].split()
+
+    response = R.kellotus(text[1])
+
+    update.message.reply_text(response)
+
 
 def main():
     updater = Updater(keys.TG_API_KEY, use_context=True)
@@ -80,6 +88,7 @@ def main():
     dp.add_handler(CommandHandler("louhinta", louhinta_command))
     dp.add_handler(CommandHandler("osake", osake_command))
     dp.add_handler(CommandHandler("help", help_command))
+    dp.add_handler(CommandHandler("kello", kellotus_command))
 
     updater.start_polling(1)
     updater.idle()
