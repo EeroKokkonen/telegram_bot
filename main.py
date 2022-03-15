@@ -4,6 +4,12 @@ import responses as R
 
 print("Bot started...")
 
+def help_command(update,context):
+    response = R.help()
+
+    update.message.reply_text(response)
+
+
 def krypto_command(update,context):
     text = [(update.message.text).lower()]
     text = text[0].split()
@@ -27,13 +33,13 @@ def louhinta_command(update,context):
     elif text[1] == "3060":
         louhinta_nopeus = [36, 24.6, 46, 1860, 121]
     elif text[1] == "3060ti":
-        louhinta_nopeus = [62, 30.5, 53, 2410, 173]
+        louhinta_nopeus = [62, 30.5, 56, 2410, 173]
     elif text[1] == "3060til":
         louhinta_nopeus = [45, 31, 53, 2320, 144]
     elif text[1] == "3080ti":
         louhinta_nopeus = [90, 59, 112, 4880, 269]
     elif text[1] == "3080":
-        louhinta_nopeus = [100, 42, 90, 4330, 228]
+        louhinta_nopeus = [100, 42, 92, 4330, 228]
     elif text[1] == "3080l":
         louhinta_nopeus = [72, 49, 90, 4110, 226]
     elif text[1] == "3070":
@@ -73,6 +79,7 @@ def main():
     dp.add_handler(CommandHandler("krypto", krypto_command))
     dp.add_handler(CommandHandler("louhinta", louhinta_command))
     dp.add_handler(CommandHandler("osake", osake_command))
+    dp.add_handler(CommandHandler("help", help_command))
 
     updater.start_polling(1)
     updater.idle()

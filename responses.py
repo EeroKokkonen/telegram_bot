@@ -2,6 +2,19 @@ import requests
 import json
 import constants as keys
 
+def help():
+    try:
+        text = "/krypto <Valuutan koko nimi> <*Lisävalinta>\n"
+        text += "/louhinta <Valuutan lyhenne> <*mhs>\n"
+        text += "/louhinta <Näytönohjain>\n"
+        text += "/osake <Osakkeen lyhenne>\n"
+        text += "* = ei pakollinen\n"
+        print(text)
+        return text
+    except Exception as e:
+        print(e)
+
+    
 def lisa_valinta(valuutta, valinta):
 
     user_message = str(valuutta).lower()
