@@ -26,10 +26,18 @@ def louhinta_command(update,context):
         louhinta_nopeus = [60, 36, 75, 3130, 171]
     elif text[1] == "3060":
         louhinta_nopeus = [36, 24.6, 46, 1860, 121]
+    elif text[1] == "3060til":
+        louhinta_nopeus = [45, 31, 53, 2320, 144]
+    elif text[1] == "3080ti":
+        louhinta_nopeus = [90, 59, 112, 4880, 269]
     elif text[1] == "3080":
         louhinta_nopeus = [100, 42, 90, 4330, 228]
+    elif text[1] == "3080l":
+        louhinta_nopeus = [72, 49, 90, 4110, 226]
     elif text[1] == "3070":
-        louhinta_nopeus = [62, 31, 58, 2780, 173]
+        louhinta_nopeus = [62, 32, 58, 2780, 173]
+    elif text[1] == "3070l":
+        louhinta_nopeus = [45, 32, 59, 2780, 146]
     else:
         kortti = False
 
