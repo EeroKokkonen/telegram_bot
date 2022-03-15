@@ -18,12 +18,22 @@ def krypto_command(update,context):
 def louhinta_command(update,context):
     text = [update.message.text.lower()]
     text = text[0].split()
-
-    try:
-        response = R.louhinta(text[1], float(text[2]))
-    except Exception as e:
-        print(e)
-        response = R.louhinta(text[1], 100)
+    response = ""
+    valuutat = ['eth', 'rvn', 'cfx', 'ton', 'erg']
+    louhinta_nopeus = [60, 36, 75, 3130, 171]
+    
+    if text[1] == "3070ti":
+        palautus = 1
+        print(text[1])
+        for i in range(len(valuutat)):
+            response += R.louhinta(valuutat[i], louhinta_nopeus[i], palautus) + "\n"
+    else:
+        palautus = 0
+        try:
+            response = R.louhinta(text[1], float(text[2]))
+        except Exception as e:
+            print(e)
+            response = R.louhinta(text[1], 100)
 
     update.message.reply_text(response)
 

@@ -48,7 +48,7 @@ def krypto(teksti):
             print(e)
             return "Väärä syöte :(."
 
-def louhinta(teksti, hashit):
+def louhinta(teksti, hashit, palautus):
 
     user_message = str(teksti).lower()
 
@@ -63,7 +63,10 @@ def louhinta(teksti, hashit):
             kuvaus_teksti = "24h tuotto " + str(hashit) + "Mh/s:\n"
             teksti_krypto = "{:.5f} ".format(tuotto_krypto) + user_message + "\n"
             teksti_usd = "{:.2f} $".format(tuotto_usd)
-            return kuvaus_teksti + teksti_krypto + teksti_usd
+            if palautus == 0:
+                return kuvaus_teksti + teksti_krypto + teksti_usd
+            elif palautus == 1:
+                return teksti + " " + str(hashit) + " Mh/s: " + teksti_usd
         except Exception as e:
             print(e)
             return "Error"
