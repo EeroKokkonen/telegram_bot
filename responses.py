@@ -16,6 +16,7 @@ def help():
 def lisa_valinta(valuutta, valinta):
 
     user_message = str(valuutta).lower()
+    print(user_message)
 
     url = "https://api.coingecko.com/api/v3/coins/" + user_message
     r = requests.get(url)
@@ -32,6 +33,7 @@ def lisa_valinta(valuutta, valinta):
 
 def krypto(teksti):
     user_message = str(teksti).lower()
+    print(user_message)
 
     if user_message == "eth" or user_message == "etukka":
         user_message = "ethereum"
@@ -48,7 +50,7 @@ def krypto(teksti):
     if r.status_code == 200:
         try:
             data = r.json()
-            kuvaus = user_message + " hinta:\n"
+            kuvaus = teksti + ":\n"
             hinta = float(data['market_data']['current_price']['eur'])
             suunta_24h = float(data['market_data']['price_change_percentage_1h_in_currency']['eur'])
             teksti_hinta = str(hinta) + "€\n"
@@ -62,6 +64,7 @@ def krypto(teksti):
 def louhinta(teksti, hashit, palautus):
 
     user_message = str(teksti).lower()
+    print(user_message)
 
     url = "https://api.minerstat.com/v2/coins?list=" + user_message
     r = requests.get(url)
@@ -85,6 +88,7 @@ def louhinta(teksti, hashit, palautus):
 
 def osake(teksti):
     user_message = str(teksti).lower()
+    print(user_message)
 
     url = "https://api.twelvedata.com/price?symbol=" + user_message + "&apikey=" + keys.STOCK_API_KEY
     url_2 = "https://api.twelvedata.com/time_series?symbol=" + user_message + "&interval=8h&apikey=" + keys.STOCK_API_KEY
@@ -98,13 +102,15 @@ def osake(teksti):
 
             data = r.json()
             print(data['price'])
-            kuvaus = "Osake: " + teksti + "\n"
+            
+            kuvaus = "Osake " + teksti + ":\n"
             hinta_osake = float(data['price'])
 
             paivan_muutos = ((hinta_osake - float(data_2['values'][0]['open'])) / float(data_2['values'][0]['open'])) * 100
             teksti_muutos = "{:.2f}%".format(paivan_muutos)
 
             teksti_osake = "{:.2f} $\n".format(hinta_osake)
+            
             return kuvaus + teksti_osake + teksti_muutos
         except Exception as e:
             print(e)
@@ -150,5 +156,7 @@ def kellotus(kortti):
     elif kortti == "1660s":
         teksti += "ETH: 1100 2100 80\n"
         teksti += "Samsung tai Micron\n"
+    
+    print(kortti)
 
     return teksti

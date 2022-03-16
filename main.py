@@ -29,7 +29,7 @@ def louhinta_command(update,context):
     valuutat = ['eth', 'rvn', 'cfx', 'ton', 'erg']
 
     if text[1] == "3070ti":
-        louhinta_nopeus = [60, 36, 75, 3130, 171]
+        louhinta_nopeus = [60, 36, 75, 3130, 180]
     elif text[1] == "3060":
         louhinta_nopeus = [36, 24.6, 46, 1860, 121]
     elif text[1] == "3060ti":
