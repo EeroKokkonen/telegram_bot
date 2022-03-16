@@ -115,6 +115,8 @@ def osake(teksti):
         except Exception as e:
             print(e)
             return "Väärä valinta, tai liikaa yrityksiä"
+    else:
+        print(r.status_code)
 
 def kellotus(kortti):
     teksti = "COIN: CORE MEM PL\n"
