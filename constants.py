@@ -1,2 +1,3 @@
-TG_API_KEY = 'Your key'
-STOCK_API_KEY = 'Your api key, for stock data'
+import os
+TG_API_KEY = os.environ['MY_TG_API_KEY']
+STOCK_API_KEY = os.environ['MY_STOCK_API_KEY']
