@@ -1,6 +1,7 @@
-import constants as keys
 from telegram.ext import *
 import responses as R
+import os
+import constants as keys
 
 print("Bot started...")
 
