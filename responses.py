@@ -1,6 +1,5 @@
 import requests
 import json
-import os
 import constants as keys
 
 def help():
@@ -22,6 +21,15 @@ def lisa_valinta(valuutta, valinta):
     url = "https://api.coingecko.com/api/v3/coins/" + user_message
     r = requests.get(url)
 
+    if user_message == "eth" or user_message == "etukka":
+        user_message = "ethereum"
+    if user_message == "btc":
+        user_message = "bitcoin"
+    if user_message == "cfx" or user_message == "conflux":
+        user_message = "conflux-token"
+    if user_message == "snx" or user_message == "synthetix":
+        user_message = "havven"
+
     if r.status_code == 200:
         try:
             data = r.json()
@@ -32,7 +40,7 @@ def lisa_valinta(valuutta, valinta):
             return "\nVäärä lisävalinta \"" + valinta + "\" :(."
 
 
-def krypto(teksti):
+def krypto(teksti, valinta):
     user_message = str(teksti).lower()
     print(user_message)
 
@@ -51,13 +59,20 @@ def krypto(teksti):
     if r.status_code == 200:
         try:
             data = r.json()
+
             kuvaus = teksti + ":\n"
             hinta = float(data['market_data']['current_price']['eur'])
             suunta_24h = float(data['market_data']['price_change_percentage_1h_in_currency']['eur'])
-            teksti_hinta = str(hinta) + "€\n"
-            teksti_suunta = "{:.2f}% 24h".format(suunta_24h)
+            if (valinta != "Ei_valintaa"):
+                tilasto = str(data['market_data'][valinta]['eur'])
+                teksti_tilasto = valinta + ": " + tilasto + '€'
+            else:
+                teksti_tilasto = ""
 
-            return kuvaus + teksti_hinta + teksti_suunta
+            teksti_hinta = str(hinta) + "€\n"
+            teksti_suunta = "{:.2f}% 24h\n".format(suunta_24h)
+            
+            return kuvaus + teksti_hinta + teksti_suunta + teksti_tilasto
         except Exception as e:
             print(e)
             return "Väärä syöte :(."
