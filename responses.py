@@ -1,5 +1,6 @@
 import requests
 import json
+import os
 import constants as keys
 
 def help():
@@ -12,10 +13,30 @@ def help():
         return text
 
 
+<<<<<<< HEAD
+
+=======
+    
+def lisa_valinta(valuutta, valinta):
+
+    user_message = str(valuutta).lower()
+    print(user_message)
+
+    url = "https://api.coingecko.com/api/v3/coins/" + user_message
+    r = requests.get(url)
+
+    if r.status_code == 200:
+        try:
+            data = r.json()
+            tilasto = str(data['market_data'][valinta]['eur'])
+            return "\n" + valinta + ": " + tilasto + '€'
+        except Exception as e:
+            print(e)
+            return "\nVäärä lisävalinta \"" + valinta + "\" :(."
+>>>>>>> parent of aee37de (Viimeisin muutos)
 
 
-
-def krypto(teksti, valinta):
+def krypto(teksti):
     user_message = str(teksti).lower()
     print(user_message)
 
@@ -34,20 +55,13 @@ def krypto(teksti, valinta):
     if r.status_code == 200:
         try:
             data = r.json()
-
             kuvaus = teksti + ":\n"
             hinta = float(data['market_data']['current_price']['eur'])
             suunta_24h = float(data['market_data']['price_change_percentage_1h_in_currency']['eur'])
-            if (valinta != "Ei_valintaa"):
-                tilasto = str(data['market_data'][valinta]['eur'])
-                teksti_tilasto = valinta + ": " + tilasto + '€'
-            else:
-                teksti_tilasto = ""
-
             teksti_hinta = str(hinta) + "€\n"
-            teksti_suunta = "{:.2f}% 24h\n".format(suunta_24h)
-            
-            return kuvaus + teksti_hinta + teksti_suunta + teksti_tilasto
+            teksti_suunta = "{:.2f}% 24h".format(suunta_24h)
+
+            return kuvaus + teksti_hinta + teksti_suunta
         except Exception as e:
             print(e)
             return "Väärä syöte :(."
