@@ -12,32 +12,7 @@ def help():
         return text
 
 
-    
-def lisa_valinta(valuutta, valinta):
 
-    user_message = str(valuutta).lower()
-    print(user_message)
-
-    url = "https://api.coingecko.com/api/v3/coins/" + user_message
-    r = requests.get(url)
-
-    if user_message == "eth" or user_message == "etukka":
-        user_message = "ethereum"
-    if user_message == "btc":
-        user_message = "bitcoin"
-    if user_message == "cfx" or user_message == "conflux":
-        user_message = "conflux-token"
-    if user_message == "snx" or user_message == "synthetix":
-        user_message = "havven"
-
-    if r.status_code == 200:
-        try:
-            data = r.json()
-            tilasto = str(data['market_data'][valinta]['eur'])
-            return "\n" + valinta + ": " + tilasto + '€'
-        except Exception as e:
-            print(e)
-            return "\nVäärä lisävalinta \"" + valinta + "\" :(."
 
 
 def krypto(teksti, valinta):

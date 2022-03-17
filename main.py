@@ -1,7 +1,7 @@
 from telegram.ext import *
 import responses as R
 import constants as keys
-from webserver import keep_alive
+#from webserver import keep_alive
 
 print("Bot started...")
 
@@ -92,7 +92,7 @@ def main():
     dp.add_handler(CommandHandler("kello", kellotus_command))
 
     updater.start_polling(1)
-    keep_alive()
+    #keep_alive()
     updater.idle()
 
 main()
