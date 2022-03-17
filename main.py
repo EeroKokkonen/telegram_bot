@@ -2,10 +2,7 @@ from telegram.ext import *
 import responses as R
 import os
 import constants as keys
-<<<<<<< HEAD
-#from webserver import keep_alive
-=======
->>>>>>> parent of aee37de (Viimeisin muutos)
+from webserver import keep_alive
 
 print("Bot started...")
 
@@ -96,10 +93,7 @@ def main():
     dp.add_handler(CommandHandler("kello", kellotus_command))
 
     updater.start_polling(1)
-<<<<<<< HEAD
-    #keep_alive()
-=======
->>>>>>> parent of aee37de (Viimeisin muutos)
+    keep_alive()
     updater.idle()
 
 main()

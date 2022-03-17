@@ -13,27 +13,6 @@ def help():
         return text
 
 
-<<<<<<< HEAD
-
-=======
-    
-def lisa_valinta(valuutta, valinta):
-
-    user_message = str(valuutta).lower()
-    print(user_message)
-
-    url = "https://api.coingecko.com/api/v3/coins/" + user_message
-    r = requests.get(url)
-
-    if r.status_code == 200:
-        try:
-            data = r.json()
-            tilasto = str(data['market_data'][valinta]['eur'])
-            return "\n" + valinta + ": " + tilasto + '€'
-        except Exception as e:
-            print(e)
-            return "\nVäärä lisävalinta \"" + valinta + "\" :(."
->>>>>>> parent of aee37de (Viimeisin muutos)
 
 
 def krypto(teksti):
