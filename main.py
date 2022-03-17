@@ -1,17 +1,18 @@
-from telegram.ext import *
+from telegram import Update
+from telegram.ext import Updater, CommandHandler, CallbackContext
 import responses as R
 import constants as keys
 from webserver import keep_alive
 
 print("Bot started...")
 
-def help_command(update,context):
+def help_command(update: Update, context: CallbackContext) -> None:
     response = R.help()
 
     update.message.reply_text(response)
 
 
-def krypto_command(update,context):
+def krypto_command(update: Update, context: CallbackContext) -> None:
     text = [(update.message.text).lower()]
     text = text[0].split()
 
@@ -22,7 +23,7 @@ def krypto_command(update,context):
 
     update.message.reply_text(response)
 
-def louhinta_command(update,context):
+def louhinta_command(update: Update, context: CallbackContext) -> None:
     text = [update.message.text.lower()]
     text = text[0].split()  # Parsing user message to list
     response = ""
@@ -65,14 +66,14 @@ def louhinta_command(update,context):
     update.message.reply_text(response)
 
 
-def osake_command(update,context):
+def osake_command(update: Update, context: CallbackContext) -> None:
     text = [update.message.text.lower()]
     text = text[0].split()
     response = R.osake(text[1])
 
     update.message.reply_text(response)
 
-def kellotus_command(update,context):
+def kellotus_command(update: Update, context: CallbackContext) -> None:
     text = [update.message.text.lower()]
     text = text[0].split()
 
@@ -92,7 +93,7 @@ def main():
     dp.add_handler(CommandHandler("kello", kellotus_command))
 
     updater.start_polling(1)
-    keep_alive()
     updater.idle()
 
+keep_alive()
 main()

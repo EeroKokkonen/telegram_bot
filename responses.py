@@ -1,5 +1,4 @@
 import requests
-import json
 import constants as keys
 
 def help():
@@ -13,32 +12,6 @@ def help():
 
 
     
-def lisa_valinta(valuutta, valinta):
-
-    user_message = str(valuutta).lower()
-    print(user_message)
-
-    url = "https://api.coingecko.com/api/v3/coins/" + user_message
-    r = requests.get(url)
-
-    if user_message == "eth" or user_message == "etukka":
-        user_message = "ethereum"
-    if user_message == "btc":
-        user_message = "bitcoin"
-    if user_message == "cfx" or user_message == "conflux":
-        user_message = "conflux-token"
-    if user_message == "snx" or user_message == "synthetix":
-        user_message = "havven"
-
-    if r.status_code == 200:
-        try:
-            data = r.json()
-            tilasto = str(data['market_data'][valinta]['eur'])
-            return "\n" + valinta + ": " + tilasto + '€'
-        except Exception as e:
-            print(e)
-            return "\nVäärä lisävalinta \"" + valinta + "\" :(."
-
 
 def krypto(teksti, valinta):
     user_message = str(teksti).lower()
@@ -56,26 +29,26 @@ def krypto(teksti, valinta):
     url = "https://api.coingecko.com/api/v3/coins/" + user_message
     r = requests.get(url)
 
-    if r.status_code == 200:
-        try:
-            data = r.json()
 
-            kuvaus = teksti + ":\n"
-            hinta = float(data['market_data']['current_price']['eur'])
-            suunta_24h = float(data['market_data']['price_change_percentage_1h_in_currency']['eur'])
-            if (valinta != "Ei_valintaa"):
-                tilasto = str(data['market_data'][valinta]['eur'])
-                teksti_tilasto = valinta + ": " + tilasto + '€'
-            else:
-                teksti_tilasto = ""
+    try:
+        data = r.json()
 
-            teksti_hinta = str(hinta) + "€\n"
-            teksti_suunta = "{:.2f}% 24h\n".format(suunta_24h)
+        kuvaus = teksti + ":\n"
+        hinta = float(data['market_data']['current_price']['eur'])
+        suunta_24h = float(data['market_data']['price_change_percentage_1h_in_currency']['eur'])
+        if (valinta != "Ei_valintaa"):
+            tilasto = str(data['market_data'][valinta]['eur'])
+            teksti_tilasto = valinta + ": " + tilasto + '€'
+        else:
+            teksti_tilasto = ""
+
+        teksti_hinta = str(hinta) + "€\n"
+        teksti_suunta = "{:.2f}% 24h\n".format(suunta_24h)
             
-            return kuvaus + teksti_hinta + teksti_suunta + teksti_tilasto
-        except Exception as e:
-            print(e)
-            return "Väärä syöte :(."
+        return kuvaus + teksti_hinta + teksti_suunta + teksti_tilasto
+    except Exception as e:
+        print(e)
+        return "Väärä syöte :(."
 
 def louhinta(teksti, hashit, palautus):
 
