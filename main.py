@@ -1,5 +1,6 @@
 from telegram.ext import *
 import responses as R
+import os
 import constants as keys
 from webserver import keep_alive
 
@@ -14,10 +15,11 @@ def help_command(update,context):
 def krypto_command(update,context):
     text = [(update.message.text).lower()]
     text = text[0].split()
-    if (len(text) >= 3):
-        response = R.krypto(text[1], text[2])
-    else:
-        response = R.krypto(text[1], "Ei_valintaa")
+    try:
+        response = R.krypto(text[1]) + R.lisa_valinta(text[1], text[2])
+    except Exception as e:
+        print(e)
+        response = R.krypto(text[1])
 
     update.message.reply_text(response)
 
@@ -58,7 +60,7 @@ def louhinta_command(update,context):
     else:
         try:
             response = R.louhinta(text[1], float(text[2]), 0)
-        except:
+        except Exception as e:
             response = R.louhinta(text[1], 100, 0)
 
     update.message.reply_text(response)
