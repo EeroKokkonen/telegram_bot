@@ -15,7 +15,7 @@ def help():
 
 
 
-def krypto(teksti):
+def krypto(teksti, valinta):
     user_message = str(teksti).lower()
     print(user_message)
 
@@ -37,10 +37,15 @@ def krypto(teksti):
             kuvaus = teksti + ":\n"
             hinta = float(data['market_data']['current_price']['eur'])
             suunta_24h = float(data['market_data']['price_change_percentage_1h_in_currency']['eur'])
+            if (valinta != "Ei_valintaa"):
+                tilasto = str(data['market_data'][valinta]['eur'])
+                teksti_tilasto = valinta + ": " + tilasto + '€'
+            else:
+                teksti_tilasto = ""
             teksti_hinta = str(hinta) + "€\n"
             teksti_suunta = "{:.2f}% 24h".format(suunta_24h)
 
-            return kuvaus + teksti_hinta + teksti_suunta
+            return kuvaus + teksti_hinta + teksti_suunta + teksti_tilasto
         except Exception as e:
             print(e)
             return "Väärä syöte :(."
