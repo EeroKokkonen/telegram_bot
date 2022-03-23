@@ -1,3 +1,3 @@
 import os
-TG_API_KEY = "5054304622:AAHUFgElrFzlvikCCPlNxcsADjUXlvvLgIg"
-STOCK_API_KEY = "7ff27d2112734a9abd57b2bfff22f688"
+TG_API_KEY = os.environ['MY_TG_API_KEY']
+STOCK_API_KEY = os.environ['MY_STOCK_API_KEY']
