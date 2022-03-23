@@ -5,11 +5,16 @@ from webserver import keep_alive
 
 print("Bot started...")
 
+
 def help_command(update,context):
     response = R.help()
 
     update.message.reply_text(response)
 
+def vero_command(update,context):
+    response = R.vero()
+
+    update.message.reply_text(response)
 
 def krypto_command(update,context):
     text = [(update.message.text).lower()]
@@ -89,6 +94,7 @@ def main():
     dp.add_handler(CommandHandler("osake", osake_command))
     dp.add_handler(CommandHandler("help", help_command))
     dp.add_handler(CommandHandler("kello", kellotus_command))
+    dp.add_handler(CommandHandler("vero", vero_command))
 
     updater.start_polling(1)
     keep_alive()

@@ -1,5 +1,6 @@
 import requests
 import constants as keys
+from datetime import date
 
 def help():
         text = "/krypto <Valuutan koko nimi> <*Lisävalinta>\n"
@@ -10,7 +11,15 @@ def help():
         text += "* = ei pakollinen\n"
         return text
 
+def vero():
+    tama_paiva = date.today()
 
+    vero_paiva = date(2022, 5, 10)
+    paivia_jaljella = vero_paiva - tama_paiva
+
+    kuvaus = "Verotukseen " + str(paivia_jaljella.days) + " paivaa."
+
+    return kuvaus
 
 
 def krypto(teksti, valinta):
@@ -34,7 +43,7 @@ def krypto(teksti, valinta):
             data = r.json()
             kuvaus = teksti + ":\n"
             hinta = float(data['market_data']['current_price']['eur'])
-            suunta_24h = float(data['market_data']['price_change_percentage_1h_in_currency']['eur'])
+            suunta_24h = float(data['market_data']['price_change_percentage_24h_in_currency']['eur'])
             if (valinta != "Ei_valintaa"):
                 tilasto = str(data['market_data'][valinta]['eur'])
                 teksti_tilasto = valinta + ": " + tilasto + '€'
